@@ -1,0 +1,12 @@
+D:\HK1-3\Git\QLGara\TestG\Models\bin\Debug\Models.dll.config
+D:\HK1-3\Git\QLGara\TestG\Models\bin\Debug\Models.dll
+D:\HK1-3\Git\QLGara\TestG\Models\bin\Debug\Models.pdb
+D:\HK1-3\Git\QLGara\TestG\Models\bin\Debug\EntityFramework.dll
+D:\HK1-3\Git\QLGara\TestG\Models\bin\Debug\EntityFramework.SqlServer.dll
+D:\HK1-3\Git\QLGara\TestG\Models\bin\Debug\EntityFramework.xml
+D:\HK1-3\Git\QLGara\TestG\Models\bin\Debug\EntityFramework.SqlServer.xml
+D:\HK1-3\Git\QLGara\TestG\Models\obj\Debug\Models.csproj.AssemblyReference.cache
+D:\HK1-3\Git\QLGara\TestG\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
+D:\HK1-3\Git\QLGara\TestG\Models\obj\Debug\Models.csproj.CopyComplete
+D:\HK1-3\Git\QLGara\TestG\Models\obj\Debug\Models.dll
+D:\HK1-3\Git\QLGara\TestG\Models\obj\Debug\Models.pdb

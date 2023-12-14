@@ -1,0 +1,26 @@
+﻿@model TestG.Models.ThayVatTu
+@{
+    ViewBag.Title = "Chập nhật số lượng";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.IDThayVatTu)
+    <div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+        <div class="col-md-4">
+            <input type="number" value="@Model.SoLuong" name="SoLuong" class="form-control" style="width: 80px; margin-left: -15px; margin-top: -10px; " />
+            @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2">
+                <input type="submit" hidden />
+            </div>
+        </div>
+    </div>
+}

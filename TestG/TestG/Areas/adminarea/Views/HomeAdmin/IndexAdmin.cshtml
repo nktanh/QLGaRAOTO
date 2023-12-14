@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewBag.Title = "IndexAdmin";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+    int a = (int)ViewBag.TongLK;
+    int b = (int)ViewBag.Tong;
+    int tong = a+b;
+}
+
+<h2>IndexAdmin</h2>
+<hr />
+<style>
+    .container-fluid {
+        display: none;
+    }
+</style>
+<div class="col-md-12">
+    <div style="background-color:aqua;color:red">
+        <div  style="text-align:left">
+            <i class="fa fa-money" aria-hidden="true" style="font-size:40px;margin-top:20px">Tổng doanh thu:  @string.Format("{0:#,##0}", tong)đ</i>
+        </div>
+
+    </div>
+</div>
+<div class="container-fluid1">
+    <div class="row col-md-12">
+
+        <div class="col-lg-4 col-md-4">
+            <div class="small-box bg-success">
+                <div class="col-md-4" style="text-align:left">
+                    <i class="fa fa-credit-card" aria-hidden="true" style="font-size:40px;margin-top:20px"></i>
+                </div>
+                <div class="inner col-md-12">
+                    <h3>Tổng tiền bảo dưỡng linh kiện</h3>
+                    <p style="font-size: 16px; margin-top: 5px; text-align:left">
+                        @string.Format("{0:#,##0}", ViewBag.Tong) đồng
+                    </p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="@Url.Action("Index","BaoDuong")" class="small-box-footer btn btn-primary">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <div class="small-box bg-info">
+                <div class="col-md-4" style="text-align:left">
+                    <i class="fa fa-users" aria-hidden="true" style="font-size:40px;margin-top:20px"></i>
+                </div>
+                <div class="inner">
+                    <h3>Số lượng khách hàng</h3>
+                    <p style="font-size: 14px; margin-top: 5px;">
+                        Số khách hàng: @ViewBag.TongKH người
+                    </p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="@Url.Action("Index", "KhachHangs")" class="small-box-footer btn btn-primary">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <div class="small-box bg-warning">
+                <div class="col-md-4" style="text-align:left">
+                    <i class="fa fa-taxi" aria-hidden="true" style="font-size:40px;margin-top:20px"></i>
+                </div>
+                <div class="inner">
+                    <h3>Số lượng dịch vụ</h3>
+                    <p style="font-size: 14px; margin-top: 5px;">
+                        Dịch vụ Gara: @ViewBag.TongDV
+                    </p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
+                <a href="@Url.Action("Index", "DichVus")" class="small-box-footer btn btn-primary">Chi tiết <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+    </div>
+    <hr />
+
+    <div class="container-fluid1">
+        <div class="row col-md-12">
+
+            <div class="col-lg-4 col-md-4">
+                <div style="background-color: #A9A9A9; color: white " >
+                    <div class="col-md-4" style="text-align:left">
+                        <i class="fa fa-credit-card" aria-hidden="true" style="font-size:40px;margin-top:20px"></i>
+                    </div>
+                    <div class="inner col-md-12">
+                        <h4>Tổng tiền thay:@string.Format("{0:#,##0}", ViewBag.TongLK)</h4>
+                        <p style="font-size: 16px; margin-top: 5px; text-align:left">
+                            
+                        </p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div style="background-color:#0094ff;color:white " >
+                    <div class="col-md-4" style="text-align:left">
+                        <i class="fa fa-user-plus"  aria-hidden="true" style="font-size:40px;margin-top:20px"></i>
+                    </div>
+                    <div class="inner">
+                        <h4>Nhân viên: @ViewBag.TongNV</h4>
+                        <p style="font-size: 14px; margin-top: 5px;">
+                            
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4">
+                <div style="background-color:#ff006e; color:white ">
+                    <div class="col-md-4" style="text-align:left">
+                        <i class="fa fa-wrench" aria-hidden="true" style="font-size:40px;margin-top:20px"></i>
+                    </div>
+                    <div class="inner">
+                        <h4>Số lượng linh kiện đã bán: @ViewBag.TongSL</h4>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-stats-bars"></i>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="container-fluid1">
+            <div class="row col-md-12">
+
+                <div class="col-lg-4 col-md-4">
+                    <div style="background-color:#ff6a00;color:white" " >
+                        <div class="col-md-4" style="text-align:left">
+                            <i class="fa fa-bed" aria-hidden="true" style="font-size:40px;margin-top:20px"></i>
+                        </div>
+                        <div class="inner col-md-12">
+                            <h4>Đối tác: @string.Format("{0:#,##0}", ViewBag.TongNCC)</h4>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                    <div style="background-color:#000000; color:white" >
+                        <div class="col-md-4" style="text-align:left">
+                            <i class="fa fa-ambulance" aria-hidden="true" style="font-size:40px;margin-top:20px"></i>
+                        </div>
+                        <div class="inner">
+                            <h4>Xe tiếp nhận:@ViewBag.TongXe</h4>
+                            <p style="font-size: 14px; margin-top: 5px;">
+                                
+                            </p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                    <div style="background-color:#0eedc4; color:white" ">
+                        <div class="col-md-4" style="text-align:left">
+                            <i class="fa fa-cogs" aria-hidden="true" style="font-size:40px;margin-top:20px"></i>
+                        </div>
+                        <div class="inner">
+                            <h3>Lượt sửa chữa: @ViewBag.TongSC</h3>
+                            <p style="font-size: 14px; margin-top: 5px;">
+                                
+                            </p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>

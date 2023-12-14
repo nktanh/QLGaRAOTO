@@ -1,0 +1,102 @@
+﻿@model TestG.Models.TiepNhanXe
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+}
+
+<h2>Chi tiết</h2>
+
+<div>
+    <hr />
+    <div>
+        <div class="dl-horizontal" style="background-color: red;color:white">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    Chủ xe:<b style="color:black">@Html.DisplayFor(model => model.KhachHang.TenKH)</b>
+                </div>
+
+                <div class="form-group col-md-4">
+                    Số điện thoại:<b style="color:black">@Html.DisplayFor(model => model.KhachHang.SDT)</b>
+                </div>
+                <div class="form-group col-md-4">
+                    Địa chỉ:<b style="color:black">@Html.DisplayFor(model => model.KhachHang.DiaChi)</b>
+                </div>
+
+                <div class="form-group col-md-4">
+                    Biển số xe:<b style="color:black">@Html.DisplayFor(model => model.BienSoXe)</b>
+                </div>
+                <div class="form-group col-md-4">
+                    Ngày tiếp nhận:<b style="color:black"> @Html.DisplayFor(model => model.NgayTiepNhan)</b>
+                </div>
+                <div class="form-group col-md-4">
+                    Hãng xe:<b style="color:black">@Html.DisplayFor(model => model.ThuongHieuXe.TenThuongHieu)</b>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    <!-- Button to open the modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Tạo phiếu sửa
+    </button>
+</p>
+<p>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tạo phiếu sửa</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">                
+                   @Html.Action("SuaChua", "TiepNhanXe", new {id=@Model.IDTiepNhanXe})
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</p>
+<div>
+    @foreach (var item in new TestG.Models.MapTiepNhanXe().DanhSachSuaChua(Model.IDTiepNhanXe))
+    {
+        <div>
+            <div class="dl-horizontal">
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        Ngày lập:<b style="color:black">
+                            @item.NgayLap
+                        </b>
+                    </div>
+                    <div class="form-group col-md-6">
+                        Nội dung<b style="color:black">
+                            @item.NoiDung
+                        </b>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        Biển số xe:<b style="color:black">
+                            @item.TiepNhanXe.BienSoXe
+                        </b>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="form-group col-md-11" style="text-align:right">
+                <a href='/adminarea/SuaChua/Details?id=@item.IDMaSuaChua' class="btn btn-outline-info"><i class="fa fa-info" aria-hidden="true"> Chi tiết</i>
+                   
+                </a>
+                <a onclick="if (confirm('Bạn có chắc chắn muốn xóa không') == true) {
+                           location.href='/adminarea/SuaChua/Delete?id=@item.IDMaSuaChua'}"
+                   href="#" class="btn btn-danger"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <hr />
+    }
+</div>

@@ -1,0 +1,119 @@
+﻿@model TestG.Models.ChiTietUser
+
+@{
+    ViewBag.Title = "ThongTinNhanVien";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+}
+
+<h2>Thông tin nhân viên</h2>
+
+<hr />
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-3">
+
+            Ảnh
+            <br />
+            <img src="@Model.Anh" style="width:300px" />
+
+            <p style="padding:90px"> <a href="~/adminarea/ChiTietUsers/CapNhatAnh?id=@Model.IDNguoiDung" class="btn btn-info fa-pull-left">UpLoad Ảnh</a></p>
+
+
+        </div>
+        <div class="col-md-6">
+            Thông tin linh kiện
+            <a href="@Url.Action("Index", "ChiTietUsers")" class="btn btn-outline-success fa-pull-right">
+                Quay lại
+            </a>
+            <a href="~/adminarea/ChiTietUsers/Edit?id=@Model.IDNguoiDung" class="btn btn-info fa-pull-right"> Chỉnh sửa thông tin</a>
+            <hr />
+            <table style="color:black" class="table table-bordered">
+                <tr>
+                    <td>
+                        Tên
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.HoTen)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Địa chỉ
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.DiaChi)
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>
+                        CMND
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.CMND)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Số điện thoại
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.SoDienThoai)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Ngày sinh
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.NgaySinh)
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        Lương
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.Luong)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Tên tài khoản
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.tk)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Mật khẩu
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.mk)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Chức vụ
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.ChucVu.TenChucVu)
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>

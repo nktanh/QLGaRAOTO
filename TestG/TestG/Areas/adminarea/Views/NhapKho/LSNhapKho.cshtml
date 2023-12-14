@@ -1,0 +1,113 @@
+﻿@model IEnumerable<TestG.Models.CTNhapKhoVT>
+@{
+    ViewBag.Title = "LichSuTonKho";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+    int i = 0;
+
+}
+
+<style>
+    .table-dark {
+        background-color: #343a40;
+        color: white;
+    }
+
+        .table-dark th, .table-dark td {
+            border-color: #454d55;
+        }
+</style>
+
+<div class="row col-md-12">
+    <div class=" col-md-7">
+        <strong style="text-align:center"> Nhật ký nhập kho</strong>
+        <br />
+        <br />
+        <table class="table table-dark">
+            <tr>
+                <th>
+                    Tên linh kiện
+                </th>
+                <th>
+                    Số lượng
+                </th>
+                <th>
+                    Chi tiết
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VatTu.Ten)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoLuong)
+                    </td>
+                    <td>
+                        <div>
+                            <b style="color:red">Người nhập:</b>@item.NhapKho.ChiTietUser.HoTen
+                        </div>
+                        <div>
+                            <b style="color:red">Ngày nhập:</b>@Html.FormatValue(@item.NhapKho.NgayNhap, "{0:dd/MM/yyyy}")
+                        </div>
+                        <div>
+                            @item.NhapKho.NhaCungCap.Ten
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    <div class="col-md-5">
+        <strong style="text-align:center"> Quản lý tồn kho</strong>
+        <br />
+        <br />
+        <table class="table table-dark">
+            <thead style="color:#0094ff">
+                <tr>
+                    <th>STT</th>
+                    <th>Tên linh kiện</th>
+                    <th>Tồn đầu</th>
+                    <th style="width:157px;">Phát sinh</th>
+                    <th style="width:157px;">Tồn cuối</th>
+                </tr>
+            </thead>
+            <tbody style="color:#00ff21">
+                @foreach (var item in new TestG.Models.MapNhapKho().DanhSach())
+                {
+                    i++;
+                    <tr>
+                        <td>
+                            <b>
+                                @i
+                            </b>
+                        </td>
+                        <td>
+                            <b>
+                                @item.VatTu.Ten
+                            </b>
+                        </td>
+                        <td>
+                            <b>
+                                @string.Format("{0:#,0}", item.TonDau)
+                            </b>
+                        </td>
+                        <td>
+                            <b>
+                                @string.Format("{0:#,0}", item.PhatSinh)
+                            </b>
+                        </td>
+                        <td>
+                            <b>
+                                @string.Format("{0:#,0}", item.TonCuoi)
+                            </b>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

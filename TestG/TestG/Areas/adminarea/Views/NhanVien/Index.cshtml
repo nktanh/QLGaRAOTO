@@ -1,0 +1,80 @@
+﻿@model IEnumerable<TestG.Models.ChiTietUser>
+
+@{
+    ViewBag.Title = "DanhSachNhanVien";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+}
+
+<h2>Danh sách nhân viên</h2>
+
+<p>
+    @Html.ActionLink("Thêm nhân viên", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Họ tên
+        </th>
+        <th style="text-align:center;width:80px">
+            @Html.DisplayNameFor(model => model.First().Anh)
+        </th>
+        <th>
+            Địa chỉ
+        </th>
+        <th>
+            CMND
+        </th>
+        <th>
+            Số điện thoại
+        </th>
+        <th>
+            Lương
+        </th>
+        <th>
+            Ngày sinh
+
+        </th>
+        <th>
+            Chức vụ
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.HoTen)
+        </td>
+        <td>
+            <img src="@Html.DisplayFor(modelItem => item.Anh)" style="width:50px;" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiaChi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CMND)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SoDienThoai)
+        </td>
+        <td style="text-align:right">
+            @Html.FormatValue(@item.Luong, "{0:#,##0}")
+        </td>
+        <td>
+            @Html.FormatValue(@item.NgaySinh, "{0:dd/MM/yyyy}")
+            
+        </td>
+
+
+        <td>
+            @Html.DisplayFor(modelItem => item.ChucVu.TenChucVu)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.IDNguoiDung }) |
+            @Html.ActionLink("Details", "Details", new { id = item.IDNguoiDung }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.IDNguoiDung })
+        </td>
+    </tr>
+}
+
+</table>

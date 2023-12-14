@@ -1,0 +1,78 @@
+﻿@model TestG.Models.TiepNhanXe
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal container">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        <label class="control-label col-md-4">Biển số xe</label>
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.BienSoXe, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BienSoXe, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">Ngày tiếp nhận</label>
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.NgayTiepNhan, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.NgayTiepNhan, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">Tên khách hàng</label>
+        <div class="col-md-12">
+            @Html.DropDownList("IDKhachHang", null, "Vui lòng chọn tên khách hàng", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IDKhachHang, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-4">Hãng xe</label>
+        <div class="col-md-12">
+            @Html.DropDownList("IDThuongHieuXe", null, "Vui lòng chọn hãng xe", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IDThuongHieuXe, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4">Nhân viên tiếp nhận</label>
+        <div class="col-md-12">
+            @Html.DropDownList("IDNhanVien", null, "Vui lòng chọn nhân viên", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IDNhanVien, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-floating mb-3 form-group">
+
+        <div class="col-md-12">
+            @Html.DropDownList("sBanGiaoXe", new SelectList(
+                new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Đang sửa chữa", Value = "false"},
+                    new SelectListItem { Text = "Đã trả xe", Value = "true" },
+
+                }, "Value", "Text"), new { @class = "form-control"})
+            <label for="BanGiaoXe" class="control-label col-md-4">Tình trạng</label>
+        </div>
+    </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

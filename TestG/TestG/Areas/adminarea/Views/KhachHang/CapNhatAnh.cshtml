@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Cập nhật hình ảnh";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+}
+<div style="padding:15px">
+    <h2 class="m-0">Cập nhật hình ảnh</h2>
+                    <form method="post" enctype="multipart/form-data" action="CapNhatAnh">
+                        <label>Chọn ảnh</label>
+                        <input type="hidden" name="id" value="@ViewBag.id">
+                        <p>
+                            <input type="file" name="fileanh" />
+                            <br />
+                            <br />
+
+                            <button class="btn btn-user btn-success">UpLoad</button>
+                        </p>
+                        <p style="color:red">
+                            @ViewBag.error
+                        </p>
+                    </form>
+                </div>
+
+<!-- Add these links to include Bootstrap CSS and JS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+

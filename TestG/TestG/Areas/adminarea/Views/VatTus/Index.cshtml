@@ -1,0 +1,235 @@
+﻿@model PagedList.IPagedList<TestG.Models.VatTu>
+@using PagedList.Mvc;
+@using TestG.Models
+
+
+@{
+    ViewBag.Title = "Danh sách linh kiện";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+    int i = 0;
+    int a;
+}
+
+<h2>Danh sách linh kiện</h2>
+
+
+<p>
+    <a href="@Url.Action("Create", "VatTus")" class="btn btn-outline-info border-info">
+        Nhập linh kiện
+    </a>
+    <a href="@Url.Action("InDanhSach", "VatTus")" class="btn btn-outline-info border-info">
+        In danh sách
+    </a>
+    <button class="btn btn-outline-warning"><a href="@Url.Action("XuatExcel", "VatTus")">In danh sách vật tư</a></button>
+</p>
+<hr />
+<div>
+    <form>
+        <select name="idloai">
+            <option>
+                Tất cả các loại
+            </option>
+            @{
+                HashSet<string> trungten = new HashSet<string>();
+            }
+            @foreach (var item in new TestG.Models.MapLinhKien().DanhSach())
+            {
+                if (trungten.Add(item.LoaiVatTu.Ten))
+                {
+                    <option value="@item.IDLoai">
+                        @item.LoaiVatTu.Ten
+                    </option>
+                }
+            }
+
+        </select>
+        <button class="btn btn-outline-dark">
+            <i class="fas fa-search fa-sm"></i>
+        </button>
+
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th style="width:5px">
+                STT
+            </th>
+            <th>
+                Tên linh kiện
+            </th>
+            <th style="text-align:right">
+                Giá bán
+            </th>
+            <th style="text-align:right">
+                Số lượng
+            </th>
+            <th>
+                Ảnh
+            </th>
+            <th style="text-align:right">
+                Giá nhập
+            </th>
+            <th>
+                Loại
+            </th>
+            <th>
+               Tên thương hiệu
+            </th>
+            <th>
+                Chức năng
+            </th>
+        </tr>
+    </thead>
+
+
+
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                @i
+            </td>
+            <td>
+                <a href="~/adminarea/VatTus/Details?id=@item.IDVatTu"> @item.Ten</a>
+
+            </td>
+            <td style="text-align:right">
+                @string.Format("{0:#,0}", item.Gia)
+            </td>
+            <td style="text-align:right">
+                <span style="font-size: @(item.SoLuong < 5 ? "16px" : "inherit"); font-weight: @(item.SoLuong < 5 ? "bold" : "normal"); color: @(item.SoLuong < 5 ? "red" : "inherit")">
+                    @Html.DisplayFor(modelItem => item.SoLuong)
+                </span>
+            </td>
+
+
+
+
+            <td>
+
+                <img src="@Html.DisplayFor(modelItem => item.Anh)" style="max-width: 100px; max-height: 100px;" />
+
+            </td>
+            <td style="text-align:right">
+
+                @string.Format("{0:#,0}", item.GiaNhap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoaiVatTu.Ten)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThuongHieuXe.TenThuongHieu)
+            </td>
+            <td>
+
+
+
+
+                <a href="~/adminarea/VatTus/Edit?id=@item.IDVatTu" class="btn btn-info"> <i class="fa fa-magic" aria-hidden="true"></i></a>
+                &nbsp;&nbsp;
+
+                <a onclick="if (confirm('Bạn có chắc chắn muốn xóa không') == true) {
+        location.href='/adminarea/VatTus/Delete?id=@item.IDVatTu'}"
+                   href="#" class="btn btn-danger"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+
+
+
+            </td>
+        </tr>
+    }
+    <tfoot style="color:white; Background:#0094ff">
+        <tr>
+            <th>
+                Tổng
+            </th>
+            <th>
+
+            </th>
+            <th style="text-align:right">
+                @string.Format("{0:#,0}", Model.Sum(item => item.Gia))
+            </th>
+            <th style="text-align:right">
+                @string.Format("{0:#,0}", Model.Sum(item => item.SoLuong))
+            </th>
+            <th>
+
+            </th>
+            <th style="text-align:right">
+                @string.Format("{0:#,0}", Model.Sum(item => item.GiaNhap))
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+            <th style="width:200px">
+
+            </th>
+            <th>
+
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </tfoot>
+
+
+</table>
+<div class="PhanTrang-container">
+    <ul class="PhanTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, timkiem = ViewBag.TimKiem, idloai = ViewBag.IDLoai }))
+        
+    </ul>
+</div>
+
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<style>
+    .PhanTrang-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .PhanTrang {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .PhanTrang li {
+            margin-right: 10px;
+        }
+
+        .PhanTrang a {
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: black;
+            background-color: none;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+
+            .PhanTrang a:hover {
+                background-color: red;
+            }
+
+        .PhanTrang .disabled {
+            
+            opacity: 0.5;
+        }
+
+        .PhanTrang .active {
+            color: white;
+            
+            background-color: #0094ff;
+        }
+</style>
+<link rel="stylesheet" href="path/to/custom.css">

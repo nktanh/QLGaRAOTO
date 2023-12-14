@@ -1,0 +1,19 @@
+﻿@using TestG.Models @{
+    ChiTietUser kh = (ChiTietUser)Session["user"];
+
+}
+@if (Session["user"] == null)
+{
+
+    <div>
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Hello</span>
+        <img class="img-profile rounded-circle" id="profile-picture" src="" alt="Profile Picture">
+    </div>
+
+}
+else
+{
+    <span class="mr-2 d-none d-lg-inline text-gray-600 small">@kh.HoTen</span>
+    <img class="img-profile rounded-circle"
+         src="@kh.Anh">
+}

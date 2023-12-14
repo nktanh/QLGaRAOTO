@@ -1,0 +1,241 @@
+﻿@model TestG.Models.SuaChua
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+    int i = 0;
+    int Tong = 0;
+}
+
+@Html.HiddenFor(model => model.ThayVatTus)
+@Html.HiddenFor(z => z.NhanCongSuaChuaXes)
+<h4>Thông tin sửa chữa</h4>
+<hr />
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+            <p>
+                <button onclick="history.back()" class="btn btn-warning">Quay lại</button>
+            </p>
+            <table style="color:black" class="table table-bordered">
+                <tr>
+                    <td>
+                        Chủ xe
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.TiepNhanXe.KhachHang.TenKH)
+
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Biển số
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.TiepNhanXe.BienSoXe)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        Nội dung
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.NoiDung)
+                    </td>
+                </tr>
+
+
+            </table>
+
+        </div>
+
+        <div class="col-md-6">
+            <a href="@Url.Action("NhanCong", "SuaChua", new { id = @Model.IDMaSuaChua })" class="btn btn-outline-success">
+                <i class="fa fa-plus" aria-hidden="true">Nhân công</i>
+            </a>
+            <br />
+            <br />
+            @foreach (var item in new TestG.Models.mapSuaChua().DSNhanCong(Model.IDMaSuaChua))
+            {
+                <div>
+                    <div class="dl-horizontal">
+                        <div class="row">
+
+                            <div class="form-group col-md-4">
+                                <img src="~/Images/@item.ChiTietUser.Anh" style="width:50px;" />
+                            </div>
+                            <div class="form-group col-md-4">
+
+                                @item.ChiTietUser.HoTen
+
+                            </div>
+                            <div class="form-group col-md-4">
+                                <a onclick="if (confirm('Bạn có chắc chắn muốn xóa không') == true) {
+                           location.href='/adminarea/SuaChua/XoaNhanCong?id=@item.IDNhanCongSuaChua'}"
+                                   href="#">Xóa</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <hr />
+            }
+
+
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <p>
+        <!-- Button to open the modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+            Thay linh kiện
+        </button>
+    </p>
+    <p>
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Chọn linh kiện</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        @Html.Action("ThayLinhKien", "SuaChua", new { a = @Model.IDMaSuaChua })
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </p>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên linh kiện</th>
+                    <th>Giá</th>
+                    <th style="width:157px;">Số lượng</th>
+                    <th>Dịch vụ</th>
+                    <th>Giá Dịch vụ</th>
+                    <th>Thành tiền</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in new TestG.Models.mapSuaChua().DanhSachThayLinhKien(Model.IDMaSuaChua))
+                {
+
+                    i++;
+                    var itemId = item.IDThayVatTu;
+                    <tr>
+                        <td>
+                            <b style="color:black">
+                                @i
+                            </b>
+                        </td>
+                        <td>
+                            <b style="color:black">
+                                @item.VatTu.Ten
+                            </b>
+                        </td>
+                        <td>
+                            <b style="color:black">
+                                @string.Format("{0:#,0}", item.VatTu.Gia)
+
+                            </b>
+                        </td>
+                        <td>
+                            <b style="color:black">
+
+                                <!-- Use an HTML form to submit the quantity update -->
+                                <form method="post" action="@Url.Action("CapNhatSoLuong","SuaChua", new {id=item.IDThayVatTu})">
+                                    <input type="number" min="1" name="SoLuong" value="@item.SoLuong" />
+                                    <input type="submit" value="Cập nhật" class="btn btn-primary" hidden />
+                                </form>
+                            </b>
+                        </td>
+
+                        <td>
+                            <b style="color:black">
+                                @item.DichVu.Ten
+                            </b>
+                        </td>
+                        <td>
+                            <b style="color:black">
+                                @string.Format("{0:#,0}", @item.DichVu.GiaTri)
+
+                            </b>
+                        </td>
+                        <td>
+                            <b style="color:black">
+
+                                @string.Format("{0:#,0}", (item.VatTu.Gia * item.SoLuong + item.DichVu.GiaTri))
+                            </b>
+                        </td>
+                        <td>
+
+                            <a onclick="if (confirm('Bạn có chắc chắn muốn xóa không') == true) {
+                       location.href='/adminarea/SuaChua/Xoa?id=@item.IDThayVatTu'}"
+                               href="#" class="btn btn-danger"> Xóa</a>
+                        </td>
+                    </tr>
+
+                    if (item.VatTu.Gia != null && item.SoLuong != null && item.DichVu.GiaTri != null)
+                    {
+                        Tong += (int)(item.VatTu.Gia * item.SoLuong + item.DichVu.GiaTri);
+                    }
+
+
+
+                }
+
+            </tbody>
+
+        </table>
+    </div>
+    <div>
+        <h2 style="text-align:right"> <strong>Tổng: @string.Format("{0:#,0}", Tong) VNĐ</strong></h2>
+    </div>
+    <footer>
+        <button id="btnThanhToan" class="btn btn-primary">Thanh toán</button>
+
+        <!-- Add a modal for payment success -->
+        <div class="modal fade" id="paymentSuccessModal" tabindex="-1" role="dialog" aria-labelledby="paymentSuccessModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="paymentSuccessModalLabel">Thanh toán thành công</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                       Đã thanh toán thành công!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#btnThanhToan').click(function () {
+            $('#paymentSuccessModal').modal('show');
+        });
+    });
+</script>
+

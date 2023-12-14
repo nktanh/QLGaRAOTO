@@ -1,0 +1,97 @@
+﻿<style>
+    .navbar-nav .dropdown-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    .navbar-nav .dropdown-content {
+        display: none;
+        position: absolute;
+        z-index: 1;
+        top: 100%;
+        left: -5px; /* Adjust this value to move the dropdown to the left */
+        background-color: #fff;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        border-radius: 0.25rem;
+        min-width: 160px;
+    }
+
+    .navbar-nav .dropdown-wrapper:hover .dropdown-content {
+        display: block;
+    }
+
+    .navbar-nav .dropdown-item {
+        padding: 8px 16px;
+        text-decoration: none;
+        display: block;
+        color: #333;
+    }
+
+        .navbar-nav .dropdown-item:hover {
+            background-color: #f2f2f2;
+        }
+</style>
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+    <!-- Sidebar Toggle (Topbar) -->
+    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <i class="fa fa-bars"></i>
+    </button>
+
+    <!-- Topbar Search -->
+
+    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <div class="input-group">
+            <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..."
+                   aria-label="Search" id="Search" name="timkiem" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-primary" id="btnSearch">
+                    <i class="fas fa-search fa-sm"></i>
+                </button>
+
+            </div>
+
+        </div>
+    </form>
+
+    <!-- Topbar Navbar -->
+    <ul class="navbar-nav ml-auto">
+        <!-- Nav Item - User Information -->
+        <li class="nav-item dropdown no-arrow">
+            <div class="dropdown-wrapper">
+                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @Html.Action("HienAnhPartial", "User")
+                </a>
+                <!-- Dropdown - User Information -->
+                <div class="dropdown-content dropdown-menu-right shadow animated--grow-in"
+                     aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="@Url.Action("XenThongTin", "User")">
+                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Thông tin
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Cài đặt
+                    </a>
+                    <a class="dropdown-item" href="@Url.Action("QuenMatKhau","User")">
+                        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Đổi mật khẩu
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="@Url.Action("DangXuat","User")">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Đăng xuất
+                    </a>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</nav>
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap JS (Popper.js and Bootstrap JS) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

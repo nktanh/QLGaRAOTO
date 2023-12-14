@@ -1,0 +1,149 @@
+﻿@using TestG.Models @{
+    ChiTietUser kh = (ChiTietUser)Session["user"];
+
+}
+
+@{
+    ViewBag.Title = "ThongTinDangNhap";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+}
+
+@if (Session["user"] == null)
+{
+    <h1>Chào mừng đến với garage ô tô</h1>
+
+}
+else
+{
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+
+                Ảnh
+                <br />
+                <img src="@kh.Anh" class="ZoomAnh" style="width: 300px; height: 400px; cursor: pointer" />
+                <div class="modal fade" id="fullScreenModal" tabindex="-1" role="dialog" aria-labelledby="fullScreenModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Larger Image -->
+                                <img src="@kh.Anh" style="width: 450px; height: 600px;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <br />
+                <br />
+                <br />
+                <h2 style="color:red">
+                    Thông tin
+                </h2>
+                <table style="color:#0094ff" class="table table-bordered">
+                    <tr>
+                        <td>
+                            Tên
+                        </td>
+
+                        <td>
+                            @kh.HoTen
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Địa chỉ
+                        </td>
+
+                        <td>
+                            @kh.DiaChi
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+                            CMND
+                        </td>
+
+                        <td>
+                            @kh.CMND
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Số điện thoại
+                        </td>
+
+                        <td>
+                            @kh.SoDienThoai
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Ngày sinh
+                        </td>
+
+                        <td>
+                            @kh.NgaySinh
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            Tên tài khoản
+                        </td>
+
+                        <td>
+                            @kh.tk
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Chức vụ
+                        </td>
+
+                        <td>
+                            @kh.ChucVu.TenChucVu
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+<style>
+    .zoom {
+        width: 800px;
+        height: 1200px;
+        transition: width 0.5s, height 0.5s;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $(".ZoomAnh").on("click", function () {
+            $("#fullScreenModal").modal("show");
+        });
+    });
+</script>
+
+
+
+<!-- Bootstrap CSS -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+<!-- Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+

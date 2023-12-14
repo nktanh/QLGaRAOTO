@@ -1,0 +1,131 @@
+﻿
+@{
+    Layout = null;
+    int i = 0;
+    int tong = 0;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>InDanhSach</title>
+    <link href="~/Acsset/AccssetAdmin/css/paper.css" rel="stylesheet" />
+    <style>
+        table {
+            margin:55px;
+            border-collapse: collapse;
+            width: 85%;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        .table-chuky {
+            border: none;
+           
+        }
+            .table-chuky tr, .table-chuky td {
+                border: none;
+                margin-top: 20px;
+                font-weight:bold;
+                text-align:right;
+                font-size:20px;
+                margin-right:20px;
+            }
+    </style>
+</head>
+<body class="A4">
+    <div style="position:fixed;bottom:20px;right:50px;color:white;">
+        <button style="background-color:#0094ff;padding:30px;border:none; color:white;border-radius:10px ;cursor:pointer;" onclick="window.print()">
+            In
+        </button>
+    </div>
+    <div>
+        <div class="sheet">
+            <h3>Danh sách linh kiện</h3>
+            <p>
+                Bản in xuất ngày: @string.Format("{0:dd-MM-yyyy}", DateTime.Now)
+            </p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            STT
+                        </th>
+                        <th>
+                            Tên linh kiện
+                        </th>
+                        <th style="text-align:right">
+                            Giá nhập
+                        </th>
+                        <th style="text-align:right">
+                            Số lượng
+                        </th>
+                        <th>
+                            Thương hiệu
+                        </th>
+
+
+                    </tr>
+                </thead>
+                @foreach (var item in new TestG.Models.MapLinhKien().DanhSach())
+                {
+                    i++;
+                    <tr>
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                            @item.Ten
+                        </td>
+                        <td style="text-align:right">
+
+                            @string.Format("{0:#,0}", item.GiaNhap)
+                        </td>
+
+                        <td style="text-align:right">
+                            @item.SoLuong
+                        </td>
+
+                        <td>
+                            @item.ThuongHieuXe.TenThuongHieu
+                        </td>
+
+                    </tr>
+                    tong -= (int)(item.Gia * item.SoLuong);
+                }
+
+            </table>
+
+            <table class="table-chuky" style="text-align:right">
+                <tr>
+                    <td> Tổng giá nhập: @string.Format("{0:#,0}", tong) VNĐ</td>
+                </tr>
+                <tr>
+                    <td>
+                        Chủ garage
+                        <br />
+                        <span style="font-weight:100">Ký và ghi rõ họ tên</span>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="padding:30px 0px"></td>
+                </tr>
+                <tr>
+                    <td>Nguyễn Khang Thái Anh</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</body>
+</html>

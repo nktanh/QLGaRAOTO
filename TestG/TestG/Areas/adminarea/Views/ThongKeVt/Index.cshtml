@@ -1,0 +1,112 @@
+﻿@model IEnumerable<TestG.Models.ThongKeVt>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+    int i = 0;
+    int tong=0;
+}
+
+<form method="get" action="@Url.Action("Index", "ThongKeVt")">
+    <label for="startDate">Từ ngày:</label>
+    <input type="date" name="startDate" id="startDate">
+
+    <label for="endDate">Đến ngày:</label>
+    <input type="date" name="endDate" id="endDate">
+
+    <button type="submit">Tìm kiếm</button>
+</form>
+
+<h1>Danh sách linh kiện</h1>
+
+<table class="table">
+    <tr>
+        <th>
+            STT
+        </th>
+        <th>
+            Vật tư
+        </th>
+        <th width="120px">
+            Số lượng
+        </th>
+        <th>
+            Ngày thay
+        </th>
+        <th width="120px">
+            Thành tiền
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+
+            <td>
+                @i
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VatTu.Ten)
+            </td>
+            <td width="120px" style="text-align:right">
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ngay)
+            </td>
+            <td style="text-align:right" width="120px">
+                <b style="color:black">
+                    @string.Format("{0:#,0}", (item.VatTu.Gia * item.SoLuong))
+                </b>
+            </td>
+        </tr>
+        if (item.VatTu.Gia != null && item.SoLuong != null)
+        {
+            tong += (int)(item.VatTu.Gia * item.SoLuong);
+        }
+    }
+    <tfoot style="color:#0094ff; Background:#0094ff">
+        <tr>
+            <th>
+                Tổng
+            </th>
+            <th>
+
+            </th>
+            <th style="text-align:right">
+                @string.Format("{0:#,0}", Model.Sum(item => item.SoLuong))
+            </th>
+            <th style="text-align:right">
+
+            </th>
+            <th style="text-align:right">
+                @string.Format("{0:#,0}", tong)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </tfoot>
+</table>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #ddd; /* Add a border to each cell */
+        padding: 8px; /* Add some padding to each cell */
+        text-align: left; /* Align text to the left in cells */
+    }
+
+    th {
+        background-color: #f2f2f2; /* Add a background color to header cells */
+    }
+
+    td {
+        vertical-align: top; /* Align text to the top of cells */
+    }
+</style>

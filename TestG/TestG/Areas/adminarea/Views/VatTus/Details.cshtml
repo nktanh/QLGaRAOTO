@@ -1,0 +1,99 @@
+﻿@model TestG.Models.VatTu
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+}
+<div>
+    @using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <hr />
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+
+                    Ảnh
+                    <br />
+                    <img src="@Model.Anh" style="width:300px" />
+                   
+                    <p style="padding:90px"> <a href="~/adminarea/VatTus/CapNhatAnh?id=@Model.IDVatTu" class="btn btn-info fa-pull-left">UpLoad Ảnh</a></p>
+
+
+                </div>
+                <div class="col-md-6">
+                    Thông tin linh kiện
+                    <a href="@Url.Action("Index", "VatTus")" class="btn btn-outline-success fa-pull-right">
+                        Quay lại
+                    </a>
+                    <a href="~/adminarea/VatTus/Edit?id=@Model.IDVatTu" class="btn btn-info fa-pull-right"> Chỉnh sửa thông tin</a>
+                    <hr />
+                    <table style="color:black" class="table table-bordered">
+                        <tr>
+                            <td>
+                                Tên
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Ten)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Giá bán
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(model => model.Gia)
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td>
+                                Loại linh kiện
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(model => model.LoaiVatTu.Ten)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Số lượng
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(model => model.SoLuong)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Giá nhập
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(model => model.GiaNhap)
+                            </td>
+
+                        </tr>
+                        
+
+                        <tr>
+                            <td>
+                                Hãng xe
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(model => model.ThuongHieuXe.TenThuongHieu)
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    }
+
+    </div>
+
+

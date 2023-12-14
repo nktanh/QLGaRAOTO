@@ -1,0 +1,65 @@
+﻿@model TestG.Models.SuaChua
+
+@{
+    ViewBag.Title = "Create";
+}
+<script src="https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js"></script>
+<div class="container mt-4">
+    <h2 class="mb-4">Phiếu sửa chữa</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.IDTiepNhan)
+
+        <div class="card">
+            <div class="card-body">
+                <div class="form-group row">
+                    <label for="NgayLap" class="col-sm-4 col-form-label text-right">Ngày lập:</label>
+                    <div class="col-sm-8">
+                        @Html.EditorFor(model => model.NgayLap, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NgayLap, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="NoiDung" class="col-sm-4 col-form-label text-right">Nội dung:</label>
+                    <div class="col-sm-8">
+                        @Html.TextAreaFor(model => model.NoiDung, new { @class = "form-control", id = "noiDung" })
+                        @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger" })
+
+                        <script>
+                            // Replace the textarea with CKEditor and configure CKFinder
+                            CKEDITOR.replace('noiDung', {
+                                filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
+                                filebrowserImageBrowseUrl: '/ckfinder/ckfinder.html?type=Images',
+                                filebrowserUploadUrl: '/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files',
+                                filebrowserImageUploadUrl: '/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images'
+                            });
+                        </script>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary">Tạo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Your existing stylesheet and script links go here -->
+<link href="~/Acsset/AccssetAdmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<link href="~/Acsset/AccssetAdmin/css/sb-admin-2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/components/modal">
+<!-- Include CKEditor library -->
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+
+<!-- Include CKFinder library -->
+<script src="https://cdn.ckeditor.com/4.16.2/standard/adapters/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor/4.16.2/ckfinder/3.7.1/ckfinder.js"></script>

@@ -1,0 +1,62 @@
+﻿@model TestG.Models.SuaChua
+
+@{
+    ViewBag.Title = "Create";
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <div class="dl-horizontal" style="background-color: blue;color:white">
+            <div class="row">
+                <div class="form-group col-md-4">
+                    Ngày lập:<b style="color:black">
+                        @Html.EditorFor(model => model.NgayLap, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NgayLap, "", new { @class = "text-danger" })
+                    </b>
+                </div>
+
+                <div class="form-group col-md-4">
+                    Biển số xe<b style="color:black">
+                        @Html.DropDownList("IDTiepNhan", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IDTiepNhan, "", new { @class = "text-danger" })
+                    </b>
+                </div>
+                
+                <div class="form-group col-md-4">
+                    Nội dung<b style="color:black">
+                        @Html.EditorFor(model => model.NoiDung, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger" })
+                    </b>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Tạo" class="btn btn-primary" />
+        </div>
+    </div>
+
+
+
+}
+<link href="~/Acsset/AccssetAdmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link href="~/Acsset/AccssetAdmin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="~/Acsset/AccssetAdmin/css/sb-admin-2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://getbootstrap.com/docs/4.0/components/modal">
+<!-- Custom styles for this template-->
+<link href="~/Acsset/AccssetAdmin/css/sb-admin-2.min.css" rel="stylesheet">
+

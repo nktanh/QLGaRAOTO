@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TestG.Models.NhanCongSuaChuaXe>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NoiDung)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChiTietUser.HoTen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDSuaChua)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoiDung)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ChiTietUser.HoTen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDSuaChua)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDNhanCongSuaChua }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDNhanCongSuaChua }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDNhanCongSuaChua })
+        </td>
+    </tr>
+}
+
+</table>

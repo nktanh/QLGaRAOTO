@@ -1,0 +1,184 @@
+﻿@model PagedList.IPagedList<TestG.Models.TiepNhanXe>
+@using PagedList.Mvc;
+@using TestG.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+    int i = 0;
+}
+
+<h2>Thông tin tiếp nhận xe</h2>
+
+<p>
+    <a href="@Url.Action("Create", "TiepNhanXe")" class="btn btn-outline-info border-info">
+       Thêm xe mới
+    </a>
+</p>
+<form id="filterForm" action="@Url.Action("Index", "TiepNhanXe")" method="get">
+    <select name="tBanGiaoXe">
+        <option value="">Tất cả trạng thái</option>
+        <option value="true">Đã trả xe</option>
+        <option value="false">Đã tiếp nhận</option>
+    </select>
+    <button type="submit" class="btn btn-outline-dark">
+        <i class="fas fa-search fa-sm"></i>
+    </button>
+</form>
+<table class="table">
+    <tr style="background-color: #0094ff;color:white">
+        <th style="width:5px">
+            STT
+        </th>
+        <th>
+            Biển số xe
+        </th>
+        <th style="width:230px">
+            Ngày tiếp nhận
+        </th>
+
+        <th style="width:200px">
+            Chủ xe
+        </th>
+        <th>
+            Hãng xe
+        </th>
+        <th style="width:200px">
+            Nhân viên tiếp nhận
+        </th>
+        <th style="width:150px">
+            Trạng thái
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                @i
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BienSoXe)
+            </td>
+            <td>
+
+                @Html.FormatValue(item.NgayTiepNhan, "{0:dd/MM/yyyy HH:mm:ss} ")
+                <br />
+                @Html.DisplayFor(model => item.NgayTiepNhan)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.KhachHang.TenKH)
+                <br />
+                @Html.DisplayFor(modelItem => item.KhachHang.DiaChi)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ThuongHieuXe.TenThuongHieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChiTietUser.HoTen)
+            </td>
+            <td>
+
+                @if (item.BanGiaoXe == true)
+                {
+                    <span style="color: #FFD700">Đã trả xe</span>
+                }
+                else
+                {
+                    <span style="color: #ff0000">Đã tiếp nhận</span>
+                }
+
+            </td>
+            <td>
+                <a href="~/adminarea/TiepNhanXe/Details?id=@item.IDTiepNhanXe" class="btn btn-warning">Xem chi tiết</a>
+                &#160;
+                <a onclick="if (confirm('Bạn có chắc chắn muốn xóa không') == true) {
+                    location.href='/adminarea/TiepNhanXe/Delete?id=@item.IDTiepNhanXe'}"
+                   href="#" class="btn btn-danger"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+                <br />
+                <a href="javascript:void(0);" class="ChuyenBanGiaoXe btn btn-success" data-id="@item.IDTiepNhanXe">
+                    Cập nhật trạng thái
+                </a>
+
+
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="PhanTrang-container">
+    <ul class="PhanTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, timkiem = ViewBag.TimKiem, idloai = ViewBag.IDLoai }))
+    </ul>
+</div>
+
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<style>
+    .PhanTrang-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .PhanTrang {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .PhanTrang li {
+            margin-right: 10px;
+        }
+
+        .PhanTrang a {
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: black;
+            background-color: none;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+
+            .PhanTrang a:hover {
+                background-color: red;
+            }
+
+        .PhanTrang .disabled {
+            opacity: 0.5;
+        }
+
+        .PhanTrang .active {
+            color: white;
+            background-color: #0094ff;
+        }
+</style>
+<link rel="stylesheet" href="path/to/custom.css">
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.ChuyenBanGiaoXe').on('click', function () {
+            var idTiepNhanXe = $(this).data('id');
+            var ThongBao = "Bạn có chắc chắn muốn thay đổi trạng thái không?";
+            if (confirm(ThongBao)) {
+                //var trangThai = confirm('Đã trả xe?') ? 1 : 0;
+                // Gửi yêu cầu cập nhật trạng thái lên server
+                $.ajax({
+                    url: '/adminarea/TiepNhanXe/ChuyenBanGiaoXe?id=' + idTiepNhanXe,
+                    type: 'POST',
+                    success: function (result) {
+                        location.reload();
+                    },
+                    error: function (error) {
+                        console.error('Error BanGiaoXe:', error);
+                    }
+                });
+            }
+        });
+    });
+</script>

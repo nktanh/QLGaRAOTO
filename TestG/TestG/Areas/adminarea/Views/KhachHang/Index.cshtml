@@ -1,0 +1,115 @@
+﻿@model PagedList.IPagedList<TestG.Models.KhachHang>
+@using PagedList.Mvc;
+@using TestG.Models
+@{
+    ViewBag.Title = "Danh sách khách hàng";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+    int i = 0;
+}
+
+<h2>Danh sách khách hàng</h2>
+
+<p>
+    <a href="@Url.Action("Create", "KhachHang")" class="btn btn-outline-info border-info">
+        Thêm khách hàng
+    </a>
+</p>
+<table class="table">
+    <tr>
+        <th style="width:5px;">
+            STT
+        </th>
+        <th>
+            Tên khách hàng
+        </th>
+        <th>
+            Số điện thoại
+        </th>
+        <th>
+            Địa chỉ
+        </th>
+        <th>
+            Chức năng
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+
+            <td>
+                @i
+            </td>
+            <td>
+                <a href="~/adminarea/KhachHang/Details?id=@item.IDKhachHang" > @Html.DisplayFor(modelItem => item.TenKH)</a>
+               
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SDT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                <a href="~/adminarea/KhachHang/Edit?id=@item.IDKhachHang" class="btn btn-info"> <i class="fa fa-magic" aria-hidden="true"></i></a>
+                &nbsp;&nbsp;
+                <a onclick="if (confirm('Bạn có chắc chắn muốn xóa không') == true) {
+        location.href='/adminarea/KhachHang/Delete?id=@item.IDKhachHang'}"
+                   href="#" class="btn btn-danger"> <i class="fa fa-trash" aria-hidden="true"></i></a>
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="PhanTrang-container">
+    <ul class="PhanTrang">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, timkiem = ViewBag.TimKiem }))
+    </ul>
+</div>
+
+<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<style>
+    .PhanTrang-container {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .PhanTrang {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .PhanTrang li {
+            margin-right: 10px;
+        }
+
+        .PhanTrang a {
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: black;
+            background-color: none;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+
+            .PhanTrang a:hover {
+                background-color: red;
+            }
+
+        .PhanTrang .disabled {
+            opacity: 0.5;
+        }
+
+        .PhanTrang .active {
+            color: white;
+            background-color: #0094ff;
+        }
+</style>
+<link rel="stylesheet" href="path/to/custom.css">

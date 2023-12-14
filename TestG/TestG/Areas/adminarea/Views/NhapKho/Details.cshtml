@@ -1,0 +1,145 @@
+﻿@model TestG.Models.NhapKho
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/adminarea/Views/Shared/_LayoutAdmi.cshtml";
+    int i = 0;
+    int tong = 0;
+    int sl = 0;
+}
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Ngày nhập
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayNhap)
+        </dd>
+
+        <dt>
+            Người nhập
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChiTietUser.HoTen)
+        </dd>
+
+        <dt>
+            Nhà cung cấp
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NhaCungCap.Ten)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <!-- Button to open the modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Nhập linh kiện
+    </button>
+</p>
+<p>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Chọn linh kiện</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    @Html.Action("NhapLinhKien", "NhapKho", new { id = @Model.IDNhapKho })
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</p>
+
+<hr />
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên linh kiện</th>
+                <th>Giá</th>
+                <th style="width:157px;">Số lượng</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in new TestG.Models.MapLinhKien().DanhSachVT(Model.IDNhapKho))
+            {
+
+                i++;
+
+                <tr>
+                    <td>
+                        <b style="color:black">
+                            @i
+                        </b>
+                    </td>
+                    <td>
+                        <b style="color:black">
+                            @item.VatTu.Ten
+                        </b>
+                    </td>
+                    <td>
+                        <b style="color:black">
+                            @string.Format("{0:#,0}", item.VatTu.Gia)
+
+                        </b>
+                    </td>
+                    <td>
+                        <b style="color:black">
+                            <form method="post" action="@Url.Action("CapNhatSoLuong","NhapKho", new {id=item.IDCTNhapKho})">
+                                <input type="number" min="1" name="SoLuong" value="@item.SoLuong" />
+                                <input type="submit" value="Cập nhật" class="btn btn-primary" hidden />
+                            </form>
+                        </b>
+                    </td>
+
+                    <td>
+                        <b style="color:black">
+
+                            @string.Format("{0:#,0}", (item.VatTu.Gia * item.SoLuong))
+                           
+                        </b>
+                    </td>
+                    <td>
+
+                        <a onclick="if (confirm('Bạn có chắc chắn muốn xóa không') == true) {
+                       location.href='/adminarea/NhapKho/Xoa?id=@item.IDCTNhapKho'}"
+                           href="#" class="btn btn-danger"> Xóa</a>
+                    </td>
+                </tr>
+
+                if (item.VatTu.Gia != null && item.SoLuong != null)
+                {
+                    tong += (int)(item.VatTu.Gia * item.SoLuong);
+                    sl += (int)(item.SoLuong);
+                }
+
+
+
+            }
+
+        </tbody>
+
+    </table>
+</div>
+
+<div style="margin-left:900px">
+    <h2 style="text-align: left"> <strong>Tổng số lượng: @string.Format("{0:#,0}", sl)</strong></h2>
+    <h2 style="text-align: left"> <strong>Tổng tiền: @string.Format("{0:#,0}", tong) VNĐ</strong></h2>
+</div>
+<hr />
+<a class="btn btn-success" href="@Url.Action("LSNhapKho","NhapKho")">Hoàn thành</a>
+
